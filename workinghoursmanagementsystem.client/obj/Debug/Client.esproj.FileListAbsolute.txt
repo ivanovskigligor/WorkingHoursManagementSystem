@@ -1,0 +1,2 @@
+D:\Workspace\C#\WorkingHoursManagementSystem\workinghoursmanagementsystem.client\obj\Debug\Client.esproj.CoreCompileInputs.cache
+D:\Workspace\Cs\WorkingHoursManagementSystem\workinghoursmanagementsystem.client\obj\Debug\Client.esproj.CoreCompileInputs.cache

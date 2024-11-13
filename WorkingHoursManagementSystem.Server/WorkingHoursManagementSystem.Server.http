@@ -1,0 +1,6 @@
+@WorkingHoursManagementSystem.Server_HostAddress = http://localhost:5164
+
+GET {{WorkingHoursManagementSystem.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
