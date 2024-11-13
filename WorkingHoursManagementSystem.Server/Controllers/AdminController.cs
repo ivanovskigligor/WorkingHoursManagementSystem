@@ -6,7 +6,6 @@ using Server.Models;
 namespace Server.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : Controller
@@ -19,10 +18,12 @@ namespace Server.Controllers
             _userManager = userManager;
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("assign-admin")]
         public async Task<IActionResult> AssignAdminRole([FromBody] RoleAssignmentRequest request)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByIdAsync(request.UserId);
 
             if (user == null)
             {
@@ -46,6 +47,6 @@ namespace Server.Controllers
     }
     public class RoleAssignmentRequest
     {
-        public string Email { get; set; }
+        public string UserId { get; set; }
     }
 }

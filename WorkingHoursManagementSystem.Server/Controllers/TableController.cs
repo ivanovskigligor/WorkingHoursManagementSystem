@@ -23,6 +23,12 @@ namespace WorkingHoursManagementSystem.Server.Controllers
         public async Task<IActionResult> GetTableData()
         {
             var data = await _userManager.Users.ToListAsync();
+
+            if (data == null)
+            {
+                return NotFound("No data found.");
+            }
+
             return Ok(data);
         }
     }

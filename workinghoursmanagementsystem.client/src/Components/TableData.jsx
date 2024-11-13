@@ -6,17 +6,33 @@ function TableData() {
 
     const [tableData, setTableData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [admin, setAdmin] = useState(false);
+    const [userId, setUserId] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filter, setFilter] = useState('active')
 
     useEffect(() => {
+        
         const token = localStorage.getItem("jwt");
+        const admins = localStorage.getItem("roles");
+        const usersId = localStorage.getItem("userId");
+
+        console.log(admins);
+        console.log(usersId);
 
         axios.get("https://localhost:7022/api/table", {
+
             withCredentials: true,
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         }).then(response => {
             setTableData(response.data);
+            setUserId(usersId);
+            if (admins == "Admin") {
+                setAdmin(true);
+            }
+            
             setLoading(false);
             console.log(response.data);
             console.log("table data fetched")
@@ -27,11 +43,79 @@ function TableData() {
             });
     }, []);
 
+    const filterData = tableData.filter((user) => {
+        const searchLowerCase = searchQuery.toLowerCase();
+
+        const searchFilter = (
+
+            user.name.toLowerCase().includes(searchLowerCase) ||
+            user.phoneNumber.toLowerCase().includes(searchLowerCase) ||
+            user.email.toLowerCase().includes(searchLowerCase) ||
+            user.employmentType.toLowerCase().includes(searchLowerCase) ||
+            (user.employmentOtherComment && user.employmentOtherComment.toLowerCase().includes(searchLowerCase)) ||
+            user.jobPosition.toLowerCase().includes(searchLowerCase)
+        )
+
+        const matchesFilter = (
+            filter === "all" ||
+            (filter === "active" && user.activeStatus) ||
+            (filter === "inactive" && !user.activeStatus)
+        );
+
+        return searchFilter && matchesFilter
+
+    });
+
     if (loading) {
         return <div>Loading...</div>
     }
+
+
   return (
       <>
+
+          {admin &&
+          <button><Link to="/register">Add user</Link></button>
+
+          }
+
+          <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+          />
+
+          <div>
+              <label>
+                  <input
+                      type="radio"
+                      value="all"
+                      checked={filter === 'all'}
+                      onChange={() => setFilter('all')}
+                  />
+                  All
+              </label>
+              <label>
+                  <input
+                      type="radio"
+                      value="active"
+                      checked={filter === 'active'}
+                      onChange={() => setFilter('active')}
+                  />
+                  Active Only
+              </label>
+              <label>
+                  <input
+                      type="radio"
+                      value="inactive"
+                      checked={filter === 'inactive'}
+                      onChange={() => setFilter('inactive')}
+                  />
+                  Inactive Only
+              </label>
+          </div>
+            
           <table>
               <thead>
                   <tr>
@@ -44,7 +128,7 @@ function TableData() {
                   </tr>
               </thead>
               <tbody>
-                  {tableData.map((user) => (
+                  {filterData.map((user) => (
                   <tr key={user.id}>
                     <td>{user.name}</td>
                     <td>{user.phoneNumber}</td>
@@ -53,7 +137,9 @@ function TableData() {
                     <td>{user.jobPosition}</td>
                     <td>{user.activeStatus ? "DA" : "NE"}</td>
                     <td>
-                        <Link to={`/edit-user/${user.id}`}>Edit User</Link>
+                        {(admin || userId === user.id) ? (
+                            <Link to={`/edit-user/${user.id}`}>Edit User</Link>
+                        ) : ("Edit User")}
                     </td>
                   </tr>
                   ))}

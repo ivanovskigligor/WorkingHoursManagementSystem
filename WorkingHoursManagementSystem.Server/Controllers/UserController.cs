@@ -25,17 +25,7 @@ namespace Server.Controllers
             return Ok(user);
         }
 
-
-        [Authorize]
-        [HttpGet("current")]
-        public async Task<IActionResult> GetCurrentUser()
-        {
-            // Get the current logged-in user
-            var currentUser = await _userManager.GetUserAsync(User);
-            return Ok(currentUser.Id);
-        }
-
-        [Authorize]
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] UpdateUserDto updatedUser)
         {

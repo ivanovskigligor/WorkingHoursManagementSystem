@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Server.DbContext;
 using Server.Models;
 
 namespace Server.Services
@@ -8,11 +10,13 @@ namespace Server.Services
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly AppDbContext _context;
 
-        public DataSeeder(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public DataSeeder(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, AppDbContext context)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task SeedRoles()
@@ -54,6 +58,24 @@ namespace Server.Services
                 }
             }
         }
+
+        public async Task SeedAbsenceTypes()
+        {
+            if (!await _context.AbsenceTypes.AnyAsync())
+            {
+                var absenceTypes = new List<AbsenceTypes>()
+                {
+                    new AbsenceTypes { Name = "Leave" },
+                    new AbsenceTypes { Name = "Sick Leave" },
+                    new AbsenceTypes { Name = "Child Care" },
+                    new AbsenceTypes { Name = "Personal Leave" },
+                };
+
+                _context.AbsenceTypes.AddRange(absenceTypes);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }
 

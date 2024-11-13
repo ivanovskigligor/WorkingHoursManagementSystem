@@ -11,6 +11,9 @@ function Home() {
 
     const logout = () => {
         localStorage.removeItem("jwt");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("roles");
+
         navigate("/login");
     }
 

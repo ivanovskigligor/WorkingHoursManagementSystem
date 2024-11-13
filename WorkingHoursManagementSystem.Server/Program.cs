@@ -66,6 +66,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<DataSeeder>();
+builder.Services.AddScoped<AbsenceTypesSeeder>();
 
 var app = builder.Build();
 
@@ -88,6 +89,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dataSeeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
     await dataSeeder.SeedRoles();
+    await dataSeeder.SeedAbsenceTypes();
 }
 
 app.MapFallbackToFile("/index.html");

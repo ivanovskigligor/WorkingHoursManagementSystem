@@ -18,8 +18,12 @@ function Login() {
                 password
             });
 
-            const { token } = response.data;
-            localStorage.setItem('jwt', token);  
+            const { token, userId, roles } = response.data;
+            localStorage.setItem('jwt', token); 
+            localStorage.setItem('userId', userId); 
+            localStorage.setItem('roles', roles[0]); 
+
+
             navigate("/");
         } catch (error) {
             setError('Login failed');

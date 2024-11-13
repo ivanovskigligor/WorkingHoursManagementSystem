@@ -13,6 +13,7 @@ function EditUser() {
         activeStatus: false,
         name: ''
     });
+    const [userRole, setUserRole] = useState(null);
 
     useEffect(() => {
 
@@ -25,49 +26,58 @@ function EditUser() {
         })
             .then(response => {
                 setUserData(response.data)
+                setUserRole(localStorage.getItem("roles"))
                 console.log(response.data)
             })
             .catch(error => console.error(error));
     }, [userId]);
 
-    axios.get(`https://localhost:7022/api/user/current`, {
+
+const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (name === "employmentType" && value !== "Other") {
+        setUserData(prevData => ({
+            ...prevData,
+            [name]: value,
+            employmentOtherComment: ''  
+        }));
+    } else {
+        setUserData(prevData => ({
+            ...prevData,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    }
+};
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios.put(`https://localhost:7022/api/user/${userId}`, userData, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`
         }
     })
         .then(response => {
-            console.log(response)
+            alert('User updated successfully');
         })
-        .catch(error => console.error(error));
-        }, []);
-
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        if (name === "employmentType" && value !== "Other") {
-            setUserData(prevData => ({
-                ...prevData,
-                [name]: value,
-                employmentOtherComment: '' 
-            }));
-        } else {
-            setUserData(prevData => ({
-                ...prevData,
-                [name]: type === 'checkbox' ? checked : value
-            }));
-        }
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        axios.put(`https://localhost:7022/api/user/${userId}`, userData, {
+        .catch(error => {
+            console.error('Error updating user:', error);
+        });
+};
+    const handleAssignAdmin = () => {
+        axios.post(`https://localhost:7022/api/admin/assign-admin`, { userId: userId }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('jwt')}`
             }
         })
-            .then(response => alert('User updated successfully'))
-            .catch(error => console.error('Error updating user:', error));
-    };
+            .then(response => {
+                alert("Admin has been assigned");
+            })
+            .catch(error => {
+            console.error(error);
+        });
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -143,6 +153,13 @@ function EditUser() {
                     onChange={handleChange}
                 />
             </div>
+
+            {userRole === "Admin" && (
+                <div>
+                    <button type="button" onClick={handleAssignAdmin}>Make this user an admin</button>
+                </div>
+            )}
+
             <button type="submit">Update User</button>
         </form>
     );

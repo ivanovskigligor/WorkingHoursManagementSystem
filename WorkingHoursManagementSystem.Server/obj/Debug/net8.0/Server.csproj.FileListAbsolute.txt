@@ -299,3 +299,4 @@ D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server
 D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\obj\Debug\net8.0\Server.genruntimeconfig.cache
 D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\obj\Debug\net8.0\ref\Server.dll
 D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\obj\Debug\net8.0\Server.sourcelink.json

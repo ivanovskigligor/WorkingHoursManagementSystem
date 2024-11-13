@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Data;
 
 namespace Server.Controllers
 {
@@ -49,7 +50,7 @@ namespace Server.Controllers
                 PhoneNumber = model.PhoneNumber,
                 JobPosition = model.JobPosition,
                 EmploymentType = model.EmploymentType,
-                EmploymentOtherComment = model.EmploymentType == EmploymentType.Other ? model.EmploymentOtherComment : null,
+                EmploymentOtherComment = model.EmploymentType == EmploymentType.Other ? model.EmploymentOtherComment : "",
                 ActiveStatus = model.ActiveStatus,
                 Photo = model.Photo,
                 Name = model.Name
@@ -82,8 +83,14 @@ namespace Server.Controllers
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
             if (result.Succeeded)
             {
+                var roles = await _userManager.GetRolesAsync(user);
+
                 var token = GenerateJwtToken(user);
-                return Ok(new { token });
+                return Ok(new {
+                    token, 
+                    userId = user.Id,
+                    roles = roles
+                });
             }
 
             return Unauthorized("Invalid username or password.");
@@ -91,12 +98,20 @@ namespace Server.Controllers
 
         private string GenerateJwtToken(ApplicationUser user)
         {
-            var claims = new[]
+            var roles = _userManager.GetRolesAsync(user).Result; // Get the user's roles
+
+            var claims = new List<Claim>
+
             {
             new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.Id)
         };
 
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role)); // Add the role to claims
+            }
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("4f2eb4242346f9de9f035b838b5f3f3e80a42c9d406b73becb246cede2bfdbe6"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
