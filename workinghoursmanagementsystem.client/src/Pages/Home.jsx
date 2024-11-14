@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import TableData from "../Components/TableData";
+
+
 function Home() {
 
 
@@ -21,7 +23,8 @@ function Home() {
 
     return (
         <>
-            {token === null ? <button><Link to="/login">Login</Link></button> : <button onClick={ logout }>Logout</button>}
+            {token === null ? <button><Link to="/login">Login</Link></button> : <button onClick={logout}>Logout</button>}
+            <Link to="/post-working-hours">Log Hours</Link>
         <TableData/> 
         </>
     );

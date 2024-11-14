@@ -11,8 +11,8 @@ namespace Server.Models
         // foreign key to users
         [Required]
         public string UserId { get; set; }
-
         [ForeignKey("UserId")]
+        public ApplicationUser? User { get; set; }   
 
         [Required]
         public DateTime Date { get; set; }
@@ -30,6 +30,6 @@ namespace Server.Models
         // foreign key to absecetypes
         public int? AbsenceTypeId { get; set; }
         [ForeignKey("AbsenceTypeId")]
-        public AbsenceTypes AbsenceTypes { get; set; }
+        public AbsenceTypes? AbsenceTypes { get; set; }
     }
 }
