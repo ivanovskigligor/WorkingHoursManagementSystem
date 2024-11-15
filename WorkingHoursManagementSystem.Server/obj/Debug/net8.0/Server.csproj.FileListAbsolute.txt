@@ -300,3 +300,11 @@ D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server
 D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\obj\Debug\net8.0\ref\Server.dll
 D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\obj\Debug\net8.0\Server.sourcelink.json
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\ClosedXML.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\ClosedXML.Parser.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\ExcelNumberFormat.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\RBush.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\SixLabors.Fonts.dll
+D:\Workspace\Cs\WorkingHoursManagementSystem\WorkingHoursManagementSystem.Server\bin\Debug\net8.0\System.IO.Packaging.dll

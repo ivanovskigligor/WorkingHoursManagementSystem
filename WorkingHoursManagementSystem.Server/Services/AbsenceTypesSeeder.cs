@@ -15,6 +15,6 @@ namespace Server.Services
             _context = context;
         }
 
-       
+
     }
 }

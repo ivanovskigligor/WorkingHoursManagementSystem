@@ -30,13 +30,14 @@ namespace Server.Controllers
                 return BadRequest(ModelState);
             }
 
+            // doesent show - fix later
             var existingUser = await _userManager.FindByNameAsync(model.UserName);
             if (existingUser != null)
             {
                 return BadRequest("Username is already taken.");
             }
 
-            // Check if email already exists
+            // doesent show - fix later
             var existingEmail = await _userManager.FindByEmailAsync(model.Email);
             if (existingEmail != null)
             {
@@ -98,7 +99,7 @@ namespace Server.Controllers
 
         private string GenerateJwtToken(ApplicationUser user)
         {
-            var roles = _userManager.GetRolesAsync(user).Result; // Get the user's roles
+            var roles = _userManager.GetRolesAsync(user).Result; 
 
             var claims = new List<Claim>
 
@@ -110,7 +111,7 @@ namespace Server.Controllers
 
             foreach (var role in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role)); // Add the role to claims
+                claims.Add(new Claim(ClaimTypes.Role, role)); //
             }
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("4f2eb4242346f9de9f035b838b5f3f3e80a42c9d406b73becb246cede2bfdbe6"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

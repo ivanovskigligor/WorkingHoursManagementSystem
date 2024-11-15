@@ -73,6 +73,7 @@ function Register() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+
             });
 
             console.log(response.data);
@@ -215,10 +216,14 @@ function Register() {
                             <p key={index} style={{ color: "red", margin: "0" }}>{error}</p>
                         ))}
                     </div>
-                ) }
-                <Link to={"/login"}>
+                )}
+                {!localStorage.getItem("userId") &&
+
+                    <Link to={"/login"}>
                     Already a user?
-                </Link>
+                </Link>}
+
+                
                 <br />
                 <button type="submit">Register</button>
             </form>

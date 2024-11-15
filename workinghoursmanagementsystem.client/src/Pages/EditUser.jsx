@@ -17,8 +17,6 @@ function EditUser() {
 
     useEffect(() => {
 
-        console.log(userId);
-
         axios.get(`https://localhost:7022/api/user/${userId}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('jwt')}`
@@ -27,7 +25,6 @@ function EditUser() {
             .then(response => {
                 setUserData(response.data)
                 setUserRole(localStorage.getItem("roles"))
-                console.log(response.data)
             })
             .catch(error => console.error(error));
     }, [userId]);
@@ -62,7 +59,7 @@ const handleSubmit = (e) => {
             alert('User updated successfully');
         })
         .catch(error => {
-            console.error('Error updating user:', error);
+            console.error('Error', error);
         });
 };
     const handleAssignAdmin = () => {

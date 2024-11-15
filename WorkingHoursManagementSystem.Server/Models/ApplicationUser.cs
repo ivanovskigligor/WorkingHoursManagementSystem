@@ -5,7 +5,7 @@ namespace Server.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        // Optional Photos
+        // optional Photos add later
         public byte[]? Photo { get; set; }
 
         [Required]

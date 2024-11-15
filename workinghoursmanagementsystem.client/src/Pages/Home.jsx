@@ -6,26 +6,9 @@ import TableData from "../Components/TableData";
 
 function Home() {
 
-
-    const navigate = useNavigate();
-
-    const token = localStorage.getItem("jwt")
-
-    const logout = () => {
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("roles");
-
-        navigate("/login");
-    }
-
-    console.log(token);
-
     return (
         <>
-            {token === null ? <button><Link to="/login">Login</Link></button> : <button onClick={logout}>Logout</button>}
-            <Link to="/post-working-hours">Log Hours</Link>
-        <TableData/> 
+            <TableData/> 
         </>
     );
 }

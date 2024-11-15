@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -7,39 +8,33 @@ const MonthlyWorkingHoursTable = () => {
     const [daysInMonth, setDaysInMonth] = useState([]);
     const [totalMonthlyHours, setTotalMonthlyHours] = useState(0);
     const [averageDailyHours, setAverageDailyHours] = useState(0);
-
+    const [currentMonth, setCurrentMonth] = useState(moment().month() + 1); // Current month (1-12)
+    const [currentYear, setCurrentYear] = useState(moment().year()); // Current year
 
     useEffect(() => {
-        // Get current year and month
-        const currentYear = new Date().getFullYear();
-        const currentMonth = new Date().getMonth() + 1;
-
-        // Fetch data for the entire month (assuming userId is stored in localStorage)
-        const userId = localStorage.getItem("userId");
-
         const fetchMonthlyData = async () => {
+            const userId = localStorage.getItem("userId");
+
             try {
                 const response = await axios.get(`https://localhost:7022/api/workinghours/user/${userId}/month?year=${currentYear}&month=${currentMonth}`);
                 setMonthlyData(response.data.workingHours);
-
                 setTotalMonthlyHours(response.data.totalMonthlyHours);
                 setAverageDailyHours(response.data.dailyAverageHours);
-
             } catch (error) {
-                console.error("Error fetching monthly data", error);
+                console.error("Error", error);
             }
         };
 
         fetchMonthlyData();
 
-        // Generate all the dates for the current month
+        // generate days in current month workaround
         const daysInCurrentMonth = [];
         const numDays = moment(`${currentYear}-${currentMonth}`, "YYYY-MM").daysInMonth();
         for (let i = 1; i <= numDays; i++) {
             daysInCurrentMonth.push(moment(`${currentYear}-${currentMonth}-${i}`, "YYYY-MM-DD"));
         }
         setDaysInMonth(daysInCurrentMonth);
-    }, []);
+    }, [currentMonth, currentYear]); 
 
     const calculateDuration = (startTime, endTime) => {
         const start = moment(startTime, 'HH:mm:ss');
@@ -47,11 +42,57 @@ const MonthlyWorkingHoursTable = () => {
         return moment.duration(end.diff(start));
     };
 
+    const exportToExcel = async () => {
+        const userId = localStorage.getItem("userId");
+
+        try {
+            const response = await axios.get(
+                `https://localhost:7022/api/workinghours/user/${userId}/month/export?year=${currentYear}&month=${currentMonth}`,
+                { responseType: 'blob' }
+            );
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `WorkingHours_${userId}_${currentYear}_${currentMonth}.xlsx`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error("Error", error);
+        }
+    };
+
+    const handlePreviousMonth = () => {
+        if (currentMonth === 1) {
+            setCurrentMonth(12);
+            setCurrentYear(currentYear - 1);
+        } else {
+            setCurrentMonth(currentMonth - 1);
+        }
+    };
+
+    const handleNextMonth = () => {
+        if (currentMonth === 12) {
+            setCurrentMonth(1);
+            setCurrentYear(currentYear + 1);
+        } else {
+            setCurrentMonth(currentMonth + 1);
+        }
+    };
+
     return (
         <div>
+            <h2>Month average daily hours: {averageDailyHours}</h2>
+            <h2>Total month hours: {totalMonthlyHours}</h2>
+            <button onClick={exportToExcel}>Export to Excel</button>
 
-            <h2>AVERAGE: {averageDailyHours}</h2>
-            <h2>TOTAL: {totalMonthlyHours}</h2>
+            <div>
+                <button onClick={handlePreviousMonth}>Previous Month</button>
+                <span>{moment(`${currentYear}-${currentMonth}`, 'YYYY-MM').format('MMMM YYYY')}</span>
+                <button onClick={handleNextMonth} disabled={currentYear === moment().year() && currentMonth === moment().month() + 1}>Next Month</button>
+            </div>
+
             <table>
                 <thead>
                     <tr>
@@ -73,7 +114,7 @@ const MonthlyWorkingHoursTable = () => {
                         const dateString = date.format('YYYY-MM-DD');
                         const entry = monthlyData.find(entry => moment(entry.date).isSame(date, 'day'));
 
-                        const isAbsence = entry && entry.absenceTypeName; // Check for absence
+                        const isAbsence = entry && entry.absenceTypeName;
 
                         const arrivalTime = isAbsence ? '' : (entry ? entry.arrivalTime : '');
                         const departureTime = isAbsence ? '' : (entry ? entry.departureTime : '');
@@ -87,10 +128,10 @@ const MonthlyWorkingHoursTable = () => {
                         return (
                             <tr
                                 key={index}
-                                style={{ backgroundColor: isAbsence ? 'red' : 'transparent' }} // Apply red background if absence
+                                style={{ backgroundColor: isAbsence ? 'red' : 'transparent' }}
                             >
                                 <td>{index + 1}</td>
-                                <td>{dateString}</td>
+                                <td><Link to={`/post-working-hours?date=${dateString}`}>{dateString}</Link></td>
                                 <td>{date.format('dddd')}</td>
                                 <td>{date.day() === 0 || date.day() === 6 ? 'Weekend' : 'Weekday'}</td>
                                 <td>{arrivalTime}</td>
@@ -105,7 +146,6 @@ const MonthlyWorkingHoursTable = () => {
                     })}
                 </tbody>
             </table>
-
         </div>
     );
 };

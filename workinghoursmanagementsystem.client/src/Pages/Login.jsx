@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
     const [userName, setUserName] = useState('');
@@ -27,7 +27,7 @@ function Login() {
             navigate("/");
         } catch (error) {
             setError('Login failed');
-            console.error(error.response || error.message);
+            console.error(error.response);
         }
     };
 
@@ -51,6 +51,7 @@ function Login() {
                 />
                 <button type="submit">Login</button>
             </form>
+            <Link to = "/register">Not a user?</Link>
             {error && <p>{error}</p>}
         </div>
     );

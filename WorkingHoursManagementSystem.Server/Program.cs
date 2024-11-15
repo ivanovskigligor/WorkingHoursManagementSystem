@@ -40,7 +40,6 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 // jwt
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -84,7 +83,7 @@ app.UseAuthentication();
 app.UseAuthorization();  
 app.MapControllers();
 
-// Run DataSeeder
+// run the DataSeeder
 using (var scope = app.Services.CreateScope())
 {
     var dataSeeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();

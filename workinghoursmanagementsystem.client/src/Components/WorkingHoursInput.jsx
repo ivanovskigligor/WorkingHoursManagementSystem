@@ -3,10 +3,13 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
+import {useLocation} from 'react-router-dom';
 
 const localizer = momentLocalizer(moment);
 
 const WorkingHoursInput = () => {
+
+    const location = useLocation();
 
     const [formData, setFormData] = useState({
         UserId: localStorage.getItem("userId"),
@@ -30,20 +33,45 @@ const WorkingHoursInput = () => {
                     LunchEndTime: response.data[0].lunchEndTime,
                     AbsenceTypeId: response.data[0].absenceTypeId || null,
                 }));
-                
+                console.log(date);
             }
         } catch (error) {
-            console.error("Error fetching working hours", error);
+            console.error("Error", error);
         }
     };
 
+    // use for WorkingHoursTable date link
     useEffect(() => {
-        const formattedDate = formData.Date instanceof Date ? formData.Date.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+        const queryParams = new URLSearchParams(location.search);
+        const selectedDate = queryParams.get("date");
+
+        if (selectedDate) {
+            const selectedDateObj = new Date(selectedDate);
+            if (selectedDateObj.toISOString().split('T')[0] !== formData.Date.toISOString().split('T')[0]) {
+                setFormData((prevData) => ({
+                    ...prevData,
+                    Date: selectedDateObj,
+                }));
+            }
+        } else {
+            const today = new Date();
+            if (today.toISOString().split('T')[0] !== formData.Date.toISOString().split('T')[0]) {
+                setFormData((prevData) => ({
+                    ...prevData,
+                    Date: today,
+                }));
+            }
+        }
+    }, [location.search]); 
+
+    // use for date selection
+    useEffect(() => {
+        const formattedDate =
+            formData.Date instanceof Date
+                ? formData.Date.toISOString().split('T')[0]
+                : new Date().toISOString().split('T')[0];
         fetchWorkingHours(formattedDate);
-        
-    }, [formData.Date]);
-
-
+    }, [formData.Date]); 
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -81,7 +109,6 @@ const WorkingHoursInput = () => {
             };
         }
 
-        console.log("Submitting payload:", payload);
 
         try {
             await axios.put('https://localhost:7022/api/workinghours/', payload);
@@ -99,8 +126,6 @@ const WorkingHoursInput = () => {
         if (day !== 0 && day !== 6) {
             const selectedDateUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
             setFormData((prevData) => ({ ...prevData, Date: selectedDateUTC }));
-            console.log("Selected UTC date:", selectedDateUTC);
-
         }
     };
 
@@ -109,14 +134,12 @@ const WorkingHoursInput = () => {
         <div>
             <h2>Log Working Hours</h2>
 
-            {/* Calendar Component */}
             <Calendar
                 localizer={localizer}
                 defaultDate={new Date()}
-                onSelectSlot={(slotInfo) => handleDateSelect(slotInfo.start)} // Selecting a date slot updates formData.Date
+                onSelectSlot={(slotInfo) => handleDateSelect(slotInfo.start)} 
                 selectable
                 views={{ month: true }}
-                toolbar={false}
                 style={{ height: '500px', width: '1000px', marginBottom: '20px' }}
             />
 

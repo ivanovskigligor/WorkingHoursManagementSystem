@@ -17,9 +17,6 @@ function TableData() {
         const admins = localStorage.getItem("roles");
         const usersId = localStorage.getItem("userId");
 
-        console.log(admins);
-        console.log(usersId);
-
         axios.get("https://localhost:7022/api/table", {
 
             withCredentials: true,
@@ -34,8 +31,6 @@ function TableData() {
             }
             
             setLoading(false);
-            console.log(response.data);
-            console.log("table data fetched")
         })
             .catch(error => {
                 console.error('Error fetching table data:', error);
@@ -73,19 +68,6 @@ function TableData() {
 
   return (
       <>
-
-          {admin &&
-          <button><Link to="/register">Add user</Link></button>
-
-          }
-
-          <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-          />
-
           <div>
               <label>
                   <input
