@@ -1,0 +1,69 @@
+.user-update-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+    .form-input:focus {
+        border-color: #78B9BA;
+        outline: none;
+    }
+
+.form-checkbox {
+    margin-top: 5px;
+}
+
+.admin-btn {
+    background-color: #78B9BA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .admin-btn:hover {
+        background-color: #0056b3;
+    }
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #78B9BA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }

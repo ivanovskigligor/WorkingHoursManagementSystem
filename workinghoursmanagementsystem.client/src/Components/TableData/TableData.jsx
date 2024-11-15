@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-
+import "./TableData.css"
 function TableData() {
 
     const [tableData, setTableData] = useState([]);
@@ -68,7 +68,18 @@ function TableData() {
 
   return (
       <>
-          <div>
+          
+          <div className="search-container">
+              <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {admin && <Link to="/register"><button>Add User</button></Link>}
+          </div>
+
+          <div className="filter-container">
               <label>
                   <input
                       type="radio"
@@ -98,7 +109,7 @@ function TableData() {
               </label>
           </div>
             
-          <table>
+          <table className="table-container">
               <thead>
                   <tr>
                       <th>Ime uporabnika</th>

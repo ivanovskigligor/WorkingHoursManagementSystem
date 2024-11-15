@@ -1,0 +1,83 @@
+.working-hours-container {
+    padding: 20px;
+    background-color: #f4f7fa; 
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+    .working-hours-container h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+.react-calendar {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center; 
+}
+
+    form label {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    form input[type="time"], form select {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        width: 7%;
+    }
+
+        form input[type="time"]:focus, form select:focus {
+            outline: none;
+            border-color: #78B9BA; 
+        }
+
+        form input[disabled], form select[disabled] {
+            background-color: #f0f0f0;
+        }
+
+    form button {
+        padding: 10px 15px;
+        background-color: #78B9BA; 
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        form button:hover {
+            background-color: #0056b3; 
+        }
+
+/* Date selected display */
+span {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Spacing between form fields */
+form label, form input, form select {
+    width: 100%;
+}
+
+form .absence-type {
+    width: 100%;
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Login from './Pages/Login';
+import Login from './Pages/Login/Login';
 import Home from './Pages/Home';
-import Register from './Pages/Register';
-import EditUser from './Pages/EditUser'
-import WorkingHoursTable from './Pages/WorkingHoursTable'
-import WorkingHoursInput from './Components/WorkingHoursInput';
+import Register from './Pages/Register/Register';
+import EditUser from './Pages/EditUser/EditUser'
+import WorkingHoursTable from './Pages/WorkingHoursTable/WorkingHoursTable'
+import WorkingHoursInput from './Components/WorkingHoursInput/WorkingHoursInput';
 
 const App = () => {
     return (

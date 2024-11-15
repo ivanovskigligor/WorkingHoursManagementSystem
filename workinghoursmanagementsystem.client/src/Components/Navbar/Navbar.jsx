@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import "./Navbar.css"
 const Navbar = () => {
 
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav>
+        <nav className = "navbar">
             <div>
                 <button><Link to = "/">Home</Link></button>
                 {userId && (

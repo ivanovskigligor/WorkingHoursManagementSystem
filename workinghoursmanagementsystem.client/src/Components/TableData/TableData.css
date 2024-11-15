@@ -1,0 +1,108 @@
+/* table container */
+.table-container {
+    width: 100%;
+    margin-top: 20px;
+}
+
+    .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table-container th, .table-container td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table-container th {
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    .table-container tr:hover {
+        background-color: #f9f9f9;
+    }
+
+/* Search container styling */
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+    /* Input field styling */
+    .search-container input {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        width: 70%;
+        max-width: 250px;
+    }
+
+    /* Button styling */
+    .search-container button {
+        background-color: #78B9BA; /* Light teal background */
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    }
+
+        /* Button hover effect */
+        .search-container button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+/* radio buttons container */
+.filter-container {
+    margin-bottom: 20px;
+}
+
+    .filter-container label {
+        font-size: 16px;
+        margin-right: 20px;
+    }
+
+    .filter-container input[type="radio"] {
+        margin-right: 5px;
+    }
+
+/* Link styling */
+.table-container a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+    .table-container a:hover {
+        text-decoration: underline;
+    }
+
+/* Table Data Rows */
+.table-container td {
+    padding: 10px;
+}
+
+    .table-container td a {
+        font-size: 14px;
+        color: #333;
+    }
+
+/* Radio button section layout */
+.filter-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .filter-container label {
+        margin-right: 10px;
+    }

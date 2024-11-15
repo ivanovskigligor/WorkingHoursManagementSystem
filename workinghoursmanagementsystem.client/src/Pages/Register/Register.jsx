@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import "./Register.css"
+
 function Register() {
 
     const [formData, setFormData] = useState({
@@ -76,10 +78,16 @@ function Register() {
 
             });
 
-            console.log(response.data);
-            console.log(formData);
+
             alert("Registration successful");
-            navigate("/login");
+
+            if (localStorage.getItem("userId")) {
+                navigate("/");
+            } else {
+                navigate("/login");
+
+            }
+
         } catch (error) {
 
             if (error.response.data) {
@@ -91,12 +99,13 @@ function Register() {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <h2>Register</h2>
+            <form onSubmit={handleSubmit} className="register-form">
+                <h2 className="form-title">Register</h2>
 
-                <div>
-                    <label>Name:</label>
+                <div className="form-group">
+                    <label className="form-label">Name:</label>
                     <input
+                        className="form-input"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
@@ -104,9 +113,10 @@ function Register() {
                     />
                 </div>
 
-                <div>
-                    <label>Job Position:</label>
+                <div className="form-group">
+                    <label className="form-label">Job Position:</label>
                     <input
+                        className="form-input"
                         name="jobPosition"
                         value={formData.jobPosition}
                         onChange={handleChange}
@@ -114,9 +124,10 @@ function Register() {
                     />
                 </div>
 
-                <div>
-                    <label>Employment Type:</label>
+                <div className="form-group">
+                    <label className="form-label">Employment Type:</label>
                     <select
+                        className="form-input"
                         name="employmentType"
                         value={formData.employmentType}
                         onChange={handleChange}
@@ -130,9 +141,10 @@ function Register() {
                 </div>
 
                 {formData.employmentType === "Other" && (
-                    <div>
-                        <label>Employment Other Comment:</label>
+                    <div className="form-group">
+                        <label className="form-label">Employment Other Comment:</label>
                         <input
+                            className="form-input"
                             name="employmentOtherComment"
                             value={formData.employmentOtherComment || ""}
                             onChange={handleChange}
@@ -140,9 +152,10 @@ function Register() {
                     </div>
                 )}
 
-                <div>
-                    <label>Active Status:</label>
+                <div className="form-group">
+                    <label className="form-label">Active Status:</label>
                     <select
+                        className="form-input"
                         name="activeStatus"
                         value={formData.activeStatus}
                         onChange={handleChange}
@@ -152,9 +165,10 @@ function Register() {
                     </select>
                 </div>
 
-                <div>
-                    <label>Username:</label>
+                <div className="form-group">
+                    <label className="form-label">Username:</label>
                     <input
+                        className="form-input"
                         name="username"
                         value={formData.username}
                         onChange={handleChange}
@@ -162,9 +176,10 @@ function Register() {
                     />
                 </div>
 
-                <div>
-                    <label>Email:</label>
+                <div className="form-group">
+                    <label className="form-label">Email:</label>
                     <input
+                        className="form-input"
                         type="email"
                         name="email"
                         value={formData.email}
@@ -173,9 +188,10 @@ function Register() {
                     />
                 </div>
 
-                <div>
-                    <label>Phone Number:</label>
+                <div className="form-group">
+                    <label className="form-label">Phone Number:</label>
                     <input
+                        className="form-input"
                         name="phoneNumber"
                         value={formData.phoneNumber}
                         onChange={handleChange}
@@ -183,9 +199,10 @@ function Register() {
                     />
                 </div>
 
-                <div>
-                    <label>Password:</label>
+                <div className="form-group">
+                    <label className="form-label">Password:</label>
                     <input
+                        className="form-input"
                         type="password"
                         name="password"
                         value={formData.password}
@@ -194,9 +211,10 @@ function Register() {
                     />
                 </div>
 
-                <div>
-                    <label>Confirm Password:</label>
+                <div className="form-group">
+                    <label className="form-label">Confirm Password:</label>
                     <input
+                        className="form-input"
                         type="password"
                         name="confirmPassword"
                         value={formData.confirmPassword}
@@ -204,30 +222,25 @@ function Register() {
                         required
                     />
                 </div>
+
                 {passwordErrors.length > 0 && (
-                    <div style={{
-                        border: "1px solid red",
-                        padding: "10px",
-                        backgroundColor: "#ffe6e6",
-                        borderRadius: "5px",
-                        marginTop: "10px",
-                    }}>
+                    <div className="error-message">
                         {passwordErrors.map((error, index) => (
-                            <p key={index} style={{ color: "red", margin: "0" }}>{error}</p>
+                            <p key={index} className="error-text">{error}</p>
                         ))}
                     </div>
                 )}
-                {!localStorage.getItem("userId") &&
 
-                    <Link to={"/login"}>
-                    Already a user?
-                </Link>}
+                {!localStorage.getItem("userId") && (
+                    <Link to="/login" className="login-link">
+                        Already a user?
+                    </Link>
+                )}
 
-                
-                <br />
-                <button type="submit">Register</button>
+                <button type="submit" className="submit-btn">Register</button>
             </form>
         </>
+
   );
 }
 

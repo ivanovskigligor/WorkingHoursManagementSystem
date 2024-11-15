@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
 import {useLocation} from 'react-router-dom';
+import "./WorkingHoursInput.css"
 
 const localizer = momentLocalizer(moment);
 
@@ -131,7 +132,7 @@ const WorkingHoursInput = () => {
 
   
     return (
-        <div>
+        <div className="working-hours-container">
             <h2>Log Working Hours</h2>
 
             <Calendar

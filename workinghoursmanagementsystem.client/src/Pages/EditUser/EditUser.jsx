@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-
+import "./EditUser.css"
 function EditUser() {
     const { userId } = useParams();
     const [userData, setUserData] = useState({
@@ -77,40 +77,44 @@ const handleSubmit = (e) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Email:</label>
+        <form onSubmit={handleSubmit} className="user-update-form">
+            <div className="form-group">
+                <label htmlFor="email" className="form-label">Email:</label>
                 <input
                     type="email"
                     name="email"
                     value={userData.email}
                     onChange={handleChange}
+                    className="form-input"
                 />
             </div>
-            <div>
-                <label>Phone Number:</label>
+            <div className="form-group">
+                <label htmlFor="phoneNumber" className="form-label">Phone Number:</label>
                 <input
                     type="text"
                     name="phoneNumber"
                     value={userData.phoneNumber}
                     onChange={handleChange}
+                    className="form-input"
                 />
             </div>
-            <div>
-                <label>Job Position:</label>
+            <div className="form-group">
+                <label htmlFor="jobPosition" className="form-label">Job Position:</label>
                 <input
                     type="text"
                     name="jobPosition"
                     value={userData.jobPosition}
                     onChange={handleChange}
+                    className="form-input"
                 />
             </div>
-            <div>
-                <label>Employment Type:</label>
+            <div className="form-group">
+                <label htmlFor="employmentType" className="form-label">Employment Type:</label>
                 <select
                     name="employmentType"
                     value={userData.employmentType}
                     onChange={handleChange}
+                    className="form-input"
                 >
                     <option value="Permanent">Permanent</option>
                     <option value="FixedTerm">FixedTerm</option>
@@ -121,43 +125,47 @@ const handleSubmit = (e) => {
                 </select>
             </div>
 
-            {userData.employmentType === "Other" && (<div>
-                <label>Employment Other Comment:</label>
-                <input
-                    type="text"
-                    name="employmentOtherComment"
-                    value={userData.employmentOtherComment}
-                    onChange={handleChange}
-                />
-            </div>) 
-            }
-            
-            <div>
-                <label>Active Status:</label>
+            {userData.employmentType === "Other" && (
+                <div className="form-group">
+                    <label htmlFor="employmentOtherComment" className="form-label">Employment Other Comment:</label>
+                    <input
+                        type="text"
+                        name="employmentOtherComment"
+                        value={userData.employmentOtherComment}
+                        onChange={handleChange}
+                        className="form-input"
+                    />
+                </div>
+            )}
+
+            <div className="form-group">
+                <label htmlFor="activeStatus" className="form-label">Active Status:</label>
                 <input
                     type="checkbox"
                     name="activeStatus"
                     checked={userData.activeStatus}
                     onChange={handleChange}
+                    className="form-checkbox"
                 />
             </div>
-            <div>
-                <label>Name:</label>
+            <div className="form-group">
+                <label htmlFor="name" className="form-label">Name:</label>
                 <input
                     type="text"
                     name="name"
                     value={userData.name}
                     onChange={handleChange}
+                    className="form-input"
                 />
             </div>
 
             {userRole === "Admin" && (
-                <div>
-                    <button type="button" onClick={handleAssignAdmin}>Make this user an admin</button>
+                <div className="form-group">
+                    <button type="button" className="admin-btn" onClick={handleAssignAdmin}>Make this user an admin</button>
                 </div>
             )}
 
-            <button type="submit">Update User</button>
+            <button type="submit" className="submit-btn">Update User</button>
         </form>
     );
 }

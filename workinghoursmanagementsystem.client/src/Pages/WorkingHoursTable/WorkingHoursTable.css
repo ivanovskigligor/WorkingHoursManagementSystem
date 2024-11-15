@@ -1,0 +1,97 @@
+.monthly-hours-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+    .monthly-hours-container h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .monthly-hours-container .button-group {
+        margin: 20px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .monthly-hours-container button {
+        background-color: #78B9BA; 
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        .monthly-hours-container button:hover {
+            background-color: #0056b3; 
+        }
+
+    .monthly-hours-container .button-group button {
+        background-color: #78B9BA; 
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .monthly-hours-container .button-group button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+    .monthly-hours-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        
+    }
+
+    .monthly-hours-container th,
+    .monthly-hours-container td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    .monthly-hours-container th {
+        background-color: #f0f0f0;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .monthly-hours-container td {
+        background-color: white;
+        color: #555;
+    }
+
+    .monthly-hours-container .absence-row td{
+        background-color: #ffcccc; 
+    }
+    .monthly-hours-container regular-row td{
+        background-color: white;
+        color: #555;
+    }
+
+    .monthly-hours-container a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .monthly-hours-container a:hover {
+            text-decoration: underline;
+        }
+
+    .monthly-hours-container .date-section {
+        font-size: 16px;
+        color: #333;
+    }

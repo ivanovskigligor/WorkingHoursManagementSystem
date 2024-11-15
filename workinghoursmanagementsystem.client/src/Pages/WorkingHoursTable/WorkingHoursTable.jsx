@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
+import "./WorkingHoursTable.css"
 
 const MonthlyWorkingHoursTable = () => {
     const [monthlyData, setMonthlyData] = useState([]);
@@ -82,14 +83,14 @@ const MonthlyWorkingHoursTable = () => {
     };
 
     return (
-        <div>
+        <div className="monthly-hours-container">
             <h2>Month average daily hours: {averageDailyHours}</h2>
             <h2>Total month hours: {totalMonthlyHours}</h2>
             <button onClick={exportToExcel}>Export to Excel</button>
 
-            <div>
+            <div className="button-group">
                 <button onClick={handlePreviousMonth}>Previous Month</button>
-                <span>{moment(`${currentYear}-${currentMonth}`, 'YYYY-MM').format('MMMM YYYY')}</span>
+                <span className="date-section">{moment(`${currentYear}-${currentMonth}`, 'YYYY-MM').format('MMMM YYYY')}</span>
                 <button onClick={handleNextMonth} disabled={currentYear === moment().year() && currentMonth === moment().month() + 1}>Next Month</button>
             </div>
 
@@ -128,7 +129,7 @@ const MonthlyWorkingHoursTable = () => {
                         return (
                             <tr
                                 key={index}
-                                style={{ backgroundColor: isAbsence ? 'red' : 'transparent' }}
+                                className={`regular-row ${isAbsence ? 'absence-row' : ''}`}
                             >
                                 <td>{index + 1}</td>
                                 <td><Link to={`/post-working-hours?date=${dateString}`}>{dateString}</Link></td>
@@ -147,6 +148,7 @@ const MonthlyWorkingHoursTable = () => {
                 </tbody>
             </table>
         </div>
+
     );
 };
 
