@@ -140,7 +140,7 @@ const MonthlyWorkingHoursTable = () => {
                                 <td>{totalTime.hours() > 0 ? `${totalTime.hours()}h ${totalTime.minutes()}m` : ''}</td>
                                 <td>{lunchStartTime}</td>
                                 <td>{lunchEndTime}</td>
-                                <td>{lunchDuration.hours() > 0 ? `${lunchDuration.hours()}h ${lunchDuration.minutes()}m` : ''}</td>
+                                <td>{lunchDuration > 0 ? `${lunchDuration.hours()}h ${lunchDuration.minutes()}m` : ''}</td>
                                 <td>{lunchOvertime > 0 ? `${Math.floor(lunchOvertime)} mins` : ''}</td>
                             </tr>
                         );
